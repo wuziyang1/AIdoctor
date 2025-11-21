@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登录</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, PingFang SC, Microsoft YaHei, sans-serif;
+            background: #f0f6ff;
+            /* 淡蓝背景 */
+            color: #0a3069
+                /* 深蓝文字 */
+        }
+
+        .wrap {
+            min-height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px
+        }
+
+        .card {
+            width: 100%;
+            max-width: 360px;
+            background: #fff;
+            border: 1px solid #d0e3ff;
+            /* 浅蓝描边 */
+            border-radius: 12px;
+            box-shadow: 0 6px 24px rgba(9, 105, 218, .12);
+            /* 蓝色系阴影 */
+            padding: 24px
+        }
+
+        h1 {
+            margin: 0 0 16px;
+            font-size: 20px;
+            color: #084298
+                /* 标题深蓝 */
+        }
+
+        .desc {
+            margin: 0 0 16px;
+            font-size: 12px;
+            color: #4f6d95
+                /* 次要说明蓝灰 */
+        }
+
+        .field {
+            margin-bottom: 12px
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 12px;
+            color: #335d92
+                /* 标签蓝灰 */
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            height: 36px;
+            padding: 8px 10px;
+            border: 1px solid #b6cffb;
+            /* 输入框蓝色描边 */
+            border-radius: 8px;
+            outline: none
+        }
+
+        input:focus {
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, .2)
+        }
+
+        button {
+            width: 100%;
+            height: 38px;
+            border: 0;
+            border-radius: 8px;
+            background: #0969da;
+            /* 主按钮蓝 */
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer
+        }
+
+        button:hover {
+            background: #0759b6
+        }
+
+        .hint {
+            margin-top: 12px;
+            font-size: 12px;
+            color: #4f6d95
+        }
+    </style>
+    <script>
+        function submitForm(e) {
+            e.preventDefault();
+            const fd = new FormData(document.getElementById('form'));
+            fetch('/login', { method: 'POST', body: fd }).then(r => r.text()).then(txt => {
+                alert(txt);
+            }).catch(() => alert('网络异常'));
+        }
+    </script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card">
+            <h1>登录</h1>
+            <p class="desc">演示页面，不做真实认证与会话。</p>
+            <form id="form" onsubmit="submitForm(event)">
+                <div class="field">
+                    <label for="username">用户名</label>
+                    <input id="username" name="username" autocomplete="username" required>
+                </div>
+                <div class="field">
+                    <label for="password">密码</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required>
+                </div>
+                <button type="submit">登录</button>
+            </form>
+            <div class="hint">POST 提交到 /login 并弹出返回文本。</div>
+        </div>
+
+    </div>
+</body>
+
+</html>
